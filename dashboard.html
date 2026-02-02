@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数据概览 | GLINK</title>
+  <!-- 引入 Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 引入 Font Awesome 图标 -->
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <!-- 引入 ECharts 图表库 -->
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+  <!-- 自定义样式 -->
+  <link rel="stylesheet" href="css/style.css">
+  
+  <!-- 配置主题色 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0D9488',
+            secondary: '#10B981',
+            dark: '#0F172A',
+            light: '#F8FAFC',
+          },
+        },
+      }
+    }
+  </script>
+</head>
+<body class="bg-light min-h-screen">
+  <!-- 侧边栏 + 主内容布局 -->
+  <div class="flex h-screen overflow-hidden">
+    <!-- 侧边导航 -->
+    <aside class="w-64 bg-white shadow-md hidden md:block">
+      <div class="p-6 border-b border-gray-100">
+        <div class="text-primary font-bold text-xl">GLINK</div>
+        <div class="text-xs text-gray-500 mt-1">SUSTAINABLE ENERGY</div>
+      </div>
+      <nav class="p-4">
+        <ul class="space-y-1">
+          <li>
+            <a href="index.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-primary/10 hover:text-primary rounded-md transition">
+              <i class="fa fa-home w-5 text-center"></i>
+              <span class="ml-3">首页</span>
+            </a>
+          </li>
+          <li>
+            <a href="market.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-primary/10 hover:text-primary rounded-md transition">
+              <i class="fa fa-exchange w-5 text-center"></i>
+              <span class="ml-3">交易市场</span>
+            </a>
+          </li>
+          <li>
+            <a href="dashboard.html" class="flex items-center px-4 py-3 bg-primary/10 text-primary rounded-md transition">
+              <i class="fa fa-bar-chart w-5 text-center"></i>
+              <span class="ml-3">数据概览</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="flex items-center px-4 py-3 text-gray-600 hover:bg-primary/10 hover:text-primary rounded-md transition">
+              <i class="fa fa-user w-5 text-center"></i>
+              <span class="ml-3">我的账户</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="flex items-center px-4 py-3 text-gray-600 hover:bg-primary/10 hover:text-primary rounded-md transition">
+              <i class="fa fa-cog w-5 text-center"></i>
+              <span class="ml-3">系统设置</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- 主内容区 -->
+    <main class="flex-1 overflow-auto">
+      <!-- 顶部导航 -->
+      <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+          <button class="md:hidden text-gray-700" id="sidebar-toggle">
+            <i class="fa fa-bars text-xl"></i>
+          </button>
+          <h1 class="text-xl font-semibold text-gray-800">数据概览</h1>
+          <div class="flex items-center space-x-4">
+            <div class="relative">
+              <input type="text" placeholder="搜索数据..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary/50">
+              <i class="fa fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            </div>
+            <div class="flex items-center space-x-2">
+              <img src="https://picsum.photos/id/1005/40/40" alt="用户头像" class="w-8 h-8 rounded-full">
+              <span class="text-sm font-medium text-gray-700 hidden md:block">企业用户1</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- 筛选时间 -->
+      <div class="container mx-auto px-6 py-4">
+        <div class="bg-white p-4 rounded-lg shadow-sm flex flex-wrap items-center justify-between gap-4">
+          <div class="flex items-center space-x-4">
+            <span class="text-sm text-gray-700">时间范围：</span>
+            <select class="px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary/50">
+              <option>近30天</option>
+              <option>近90天</option>
+              <option>近1年</option>
+              <option>自定义</option>
+            </select>
+            <button class="bg-primary text-white px-4 py-2 rounded-md text-sm hover:bg-primary/90 transition">
+              <i class="fa fa-refresh mr-1"></i> 刷新数据
+            </button>
+          </div>
+          <div class="flex items-center space-x-4">
+            <button class="px-3 py-2 border border-gray-300 rounded-md text-sm text-gray-700 hover:bg-gray-50 transition">
+              <i class="fa fa-download mr-1"></i> 导出Excel
+            </button>
+            <button class="px-3 py-2 border border-gray-300 rounded-md text-sm text-gray-700 hover:bg-gray-50 transition">
+              <i class="fa fa-print mr-1"></i> 打印报表
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 数据卡片 -->
+      <div class="container mx-auto px-6 py-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <!-- 卡片1：总交易量 -->
+          <div class="bg-white rounded-lg shadow-sm p-6 border-l-4 border-primary">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm text-gray-500">总交易量</p>
+                <h3 class="text-2xl font-bold text-gray-900 mt-1">28.6 万 MWh</h3>
+                <p class="text-xs text-green-600 mt-2">
+                  <i class="fa fa-arrow-up mr-1"></i> 12.5% 环比增长
+                </p>
+              </div>
+              <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                <i class="fa fa-exchange text-primary text-xl"></i>
+              </div>
+            </div>
+          </div>
+          <!-- 卡片2：交易金额 -->
+          <div class="bg-white rounded-lg shadow-sm p-6 border-l-4 border-blue-500">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm text-gray-500">交易金额</p>
+                <h3 class="text-2xl font-bold text-gray-900 mt-1">¥3458.2 万</h3>
+                <p class="text-xs text-green-600 mt-2">
+                  <i class="fa fa-arrow-up mr-1"></i> 8.3% 环比增长
+                </p>
+              </div>
+              <div class="w-12 h-12 bg-blue-500/10 rounded-full flex items-center justify-center">
+                <i class="fa fa-rmb text-blue-500 text-xl"></i>
+              </div>
+            </div>
+          </div>
+          <!-- 卡片3：平均价格 -->
+          <div class="bg-white rounded-lg shadow-sm p-6 border-l-4 border-orange-500">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm text-gray-500">平均价格</p>
+                <h3 class="text-2xl font-bold text-gray-900 mt-1">¥12.1 / MWh</h3>
+                <p class="text-xs text-red-600 mt-2">
+                  <i class="fa fa-arrow-down mr-1"></i> 2.1% 环比下降
+                </p>
+              </div>
+              <div class="w-12 h-12 bg-orange-500/10 rounded-full flex items-center justify-center">
+                <i class="fa fa-tag text-orange-500 text-xl"></i>
+              </div>
+            </div>
+          </div>
+          <!-- 卡片4：交易次数 -->
+          <div class="bg-white rounded-lg shadow-sm p-6 border-l-4 border-purple-500">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm text-gray-500">交易次数</p>
+                <h3 class="text-2xl font-bold text-gray-900 mt-1">128 笔</h3>
+                <p class="text-xs text-green-600 mt-2">
+                  <i class="fa fa-arrow-up mr-1"></i> 18.5% 环比增长
+                </p>
+              </div>
+              <div class="w-12 h-12 bg-purple-500/10 rounded-full flex items-center justify-center">
+                <i class="fa fa-history text-purple-500 text-xl"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 图表区域 -->
+      <div class="container mx-auto px-6 py-4 pb-16">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <!-- 交易量趋势图 -->
+          <div class="bg-white rounded-lg shadow-sm p-6">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">交易量趋势（MWh）</h3>
+            <div id="volume-chart" class="w-full h-80"></div>
+          </div>
+          <!-- 能源类型占比 -->
+          <div class="bg-white rounded-lg shadow-sm p-6">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">能源类型占比</h3>
+            <div id="type-chart" class="w-full h-80"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- 图表初始化脚本 -->
+  <script>
+    // 初始化交易量趋势图
+    const volumeChart = echarts.init(document.getElementById('volume-chart'));
+    volumeChart.setOption({
+      tooltip: { trigger: 'axis' },
+      grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
+      xAxis: {
+        type: 'category',
+        data: ['1月', '2月', '3月', '4月', '5月', '6月']
+      },
+      yAxis: { type: 'value' },
+      series: [{
+        name: '交易量',
+        type: 'line',
+        data: [35000, 42000, 38000, 48000, 52000, 55000],
+        smooth: true,
+        lineStyle: { color: '#0D9488', width: 2 },
+        itemStyle: { color: '#0D9488' },
+        areaStyle: { color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+          offset: 0, color: 'rgba(13, 148, 136, 0.3)'
+        }, {
+          offset: 1, color: 'rgba(13, 148, 136, 0)'
+        }]) }
+      }]
+    });
+
+    // 初始化能源类型占比图
+    const typeChart = echarts.init(document.getElementById('type-chart'));
+    typeChart.setOption({
+      tooltip: { trigger: 'item' },
+      legend: { top: '0%', left: 'center' },
+      series: [{
+        name: '能源类型',
+        type: 'pie',
+        radius: ['40%', '70%'],
+        avoidLabelOverlap: false,
+        itemStyle: {
+          borderRadius: 10,
+          borderColor: '#fff',
+          borderWidth: 2
+        },
+        label: { show: false, position: 'center' },
+        emphasis: {
+          label: { show: true, fontSize: 16, fontWeight: 'bold' }
+        },
+        labelLine: { show: false },
+        data: [
+          { value: 45, name: '光伏' },
+          { value: 30, name: '风电' },
+          { value: 15, name: '生物质' },
+          { value: 10, name: '其他' }
+        ],
+        color: ['#3B82F6', '#8B5CF6', '#0D9488', '#F97316']
+      }]
+    });
+
+    // 响应窗口大小变化
+    window.addEventListener('resize', () => {
+      volumeChart.resize();
+      typeChart.resize();
+    });
+  </script>
+
+  <!-- 引入通用交互脚本 -->
+  <script src="js/main.js"></script>
+</body>
+</html>

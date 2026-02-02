@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>交易市场 | GLINK</title>
+  <!-- 引入 Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 引入 Font Awesome 图标 -->
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <!-- 自定义样式 -->
+  <link rel="stylesheet" href="css/style.css">
+  
+  <!-- 配置主题色 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0D9488',
+            secondary: '#10B981',
+            dark: '#0F172A',
+            light: '#F8FAFC',
+          },
+        },
+      }
+    }
+  </script>
+</head>
+<body class="bg-light min-h-screen">
+  <!-- 侧边栏 + 主内容布局 -->
+  <div class="flex h-screen overflow-hidden">
+    <!-- 侧边导航 -->
+    <aside class="w-64 bg-white shadow-md hidden md:block">
+      <div class="p-6 border-b border-gray-100">
+        <div class="text-primary font-bold text-xl">GLINK</div>
+        <div class="text-xs text-gray-500 mt-1">SUSTAINABLE ENERGY</div>
+      </div>
+      <nav class="p-4">
+        <ul class="space-y-1">
+          <li>
+            <a href="index.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-primary/10 hover:text-primary rounded-md transition">
+              <i class="fa fa-home w-5 text-center"></i>
+              <span class="ml-3">首页</span>
+            </a>
+          </li>
+          <li>
+            <a href="market.html" class="flex items-center px-4 py-3 bg-primary/10 text-primary rounded-md transition">
+              <i class="fa fa-exchange w-5 text-center"></i>
+              <span class="ml-3">交易市场</span>
+            </a>
+          </li>
+          <li>
+            <a href="dashboard.html" class="flex items-center px-4 py-3 text-gray-600 hover:bg-primary/10 hover:text-primary rounded-md transition">
+              <i class="fa fa-bar-chart w-5 text-center"></i>
+              <span class="ml-3">数据概览</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="flex items-center px-4 py-3 text-gray-600 hover:bg-primary/10 hover:text-primary rounded-md transition">
+              <i class="fa fa-user w-5 text-center"></i>
+              <span class="ml-3">我的账户</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="flex items-center px-4 py-3 text-gray-600 hover:bg-primary/10 hover:text-primary rounded-md transition">
+              <i class="fa fa-cog w-5 text-center"></i>
+              <span class="ml-3">系统设置</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- 主内容区 -->
+    <main class="flex-1 overflow-auto">
+      <!-- 顶部导航 -->
+      <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+          <button class="md:hidden text-gray-700" id="sidebar-toggle">
+            <i class="fa fa-bars text-xl"></i>
+          </button>
+          <h1 class="text-xl font-semibold text-gray-800">交易市场</h1>
+          <div class="flex items-center space-x-4">
+            <div class="relative">
+              <input type="text" placeholder="搜索资产/项目..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary/50">
+              <i class="fa fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            </div>
+            <div class="flex items-center space-x-2">
+              <img src="https://picsum.photos/id/1005/40/40" alt="用户头像" class="w-8 h-8 rounded-full">
+              <span class="text-sm font-medium text-gray-700 hidden md:block">企业用户1</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- 横幅提示 -->
+      <div class="bg-dark text-white py-4">
+        <div class="container mx-auto px-6">
+          <p>连接能源卖方与工业用能买方，实现高效能源分配与碳指标交易。</p>
+        </div>
+      </div>
+
+      <!-- 标签页 -->
+      <div class="container mx-auto px-6 py-6">
+        <div class="border-b border-gray-200">
+          <nav class="-mb-px flex space-x-8">
+            <a href="#" class="border-b-2 border-primary text-primary py-4 px-1 font-medium">卖方市场</a>
+            <a href="#" class="border-transparent hover:text-gray-700 hover:border-gray-300 py-4 px-1 font-medium text-gray-500">买方需求</a>
+          </nav>
+        </div>
+      </div>
+
+      <!-- 筛选栏 -->
+      <div class="container mx-auto px-6 py-4">
+        <div class="bg-white p-4 rounded-lg shadow-sm">
+          <div class="grid grid-cols-1 md:grid-cols-6 gap-4">
+            <div>
+              <label class="text-xs text-gray-500 block mb-1">起始月份</label>
+              <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" placeholder="全部时期">
+            </div>
+            <div>
+              <label class="text-xs text-gray-500 block mb-1">截止月份</label>
+              <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" placeholder="全部时期">
+            </div>
+            <div>
+              <label class="text-xs text-gray-500 block mb-1">能源类型</label>
+              <select class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary/50">
+                <option>全部类型</option>
+                <option>生物质</option>
+                <option>风电</option>
+                <option>光伏</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-xs text-gray-500 block mb-1">区域</label>
+              <select class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary/50">
+                <option>全部区域</option>
+                <option>河北</option>
+                <option>山东</option>
+                <option>江苏</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-xs text-gray-500 block mb-1">价格区间</label>
+              <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" placeholder="¥0 - ¥100">
+            </div>
+            <div class="flex items-end">
+              <button class="w-full bg-primary text-white px-4 py-2 rounded-md text-sm hover:bg-primary/90 transition">
+                <i class="fa fa-filter mr-1"></i> 筛选
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 交易列表 -->
+      <div class="container mx-auto px-6 pb-16">
+        <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">资产 / 项目</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">区域 / 时期</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">类型 / 属性</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">库存/需求</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">价格</th>
+                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              <!-- 交易项1 -->
+              <tr class="hover:bg-gray-50 transition">
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="flex items-center">
+                    <div class="flex-shrink-0 h-8 w-8 bg-green-100 rounded-full flex items-center justify-center">
+                      <i class="fa fa-leaf text-green-600"></i>
+                    </div>
+                    <div class="ml-3">
+                      <div class="text-sm font-medium text-gray-900">河北冀北生物质 D</div>
+                      <div class="text-xs text-gray-500">ID: 88204</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <div>河北</div>
+                  <div>2025-01</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <div class="text-green-600 font-medium">生物质</div>
+                  <div class="text-xs">No-subsidy / Inter-province</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">3,200 MWh</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-orange-600 font-medium">¥12.1</td>
+                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <a href="#" class="text-primary hover:text-primary/80 mr-3">详情</a>
+                  <button class="bg-primary text-white px-3 py-1 rounded text-xs hover:bg-primary/90 transition">锁定</button>
+                </td>
+              </tr>
+              <!-- 交易项2 -->
+              <tr class="hover:bg-gray-50 transition">
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="flex items-center">
+                    <div class="flex-shrink-0 h-8 w-8 bg-blue-100 rounded-full flex items-center justify-center">
+                      <i class="fa fa-bolt text-blue-600"></i>
+                    </div>
+                    <div class="ml-3">
+                      <div class="text-sm font-medium text-gray-900">山东光伏电站 A</div>
+                      <div class="text-xs text-gray-500">ID: 75109</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <div>山东</div>
+                  <div>2025-02</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <div class="text-blue-600 font-medium">光伏</div>
+                  <div class="text-xs">Subsidy / Intra-province</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">5,800 MWh</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-orange-600 font-medium">¥15.8</td>
+                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <a href="#" class="text-primary hover:text-primary/80 mr-3">详情</a>
+                  <button class="bg-primary text-white px-3 py-1 rounded text-xs hover:bg-primary/90 transition">锁定</button>
+                </td>
+              </tr>
+              <!-- 交易项3 -->
+              <tr class="hover:bg-gray-50 transition">
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="flex items-center">
+                    <div class="flex-shrink-0 h-8 w-8 bg-purple-100 rounded-full flex items-center justify-center">
+                      <i class="fa fa-wind text-purple-600"></i>
+                    </div>
+                    <div class="ml-3">
+                      <div class="text-sm font-medium text-gray-900">江苏风电项目 B</div>
+                      <div class="text-xs text-gray-500">ID: 92387</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <div>江苏</div>
+                  <div>2025-03</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <div class="text-purple-600 font-medium">风电</div>
+                  <div class="text-xs">No-subsidy / Inter-province</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">7,500 MWh</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-orange-600 font-medium">¥11.5</td>
+                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <a href="#" class="text-primary hover:text-primary/80 mr-3">详情</a>
+                  <button class="bg-primary text-white px-3 py-1 rounded text-xs hover:bg-primary/90 transition">锁定</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- 分页 -->
+          <div class="px-6 py-4 border-t border-gray-200 flex items-center justify-between">
+            <div class="text-sm text-gray-700">
+              显示 <span class="font-medium">1</span> 到 <span class="font-medium">3</span> 条，共 <span class="font-medium">28</span> 条结果
+            </div>
+            <div class="flex space-x-2">
+              <button class="px-3 py-1 border border-gray-300 rounded-md text-sm text-gray-500 hover:bg-gray-50 disabled:opacity-50" disabled>上一页</button>
+              <button class="px-3 py-1 bg-primary text-white rounded-md text-sm hover:bg-primary/90">1</button>
+              <button class="px-3 py-1 border border-gray-300 rounded-md text-sm text-gray-700 hover:bg-gray-50">2</button>
+              <button class="px-3 py-1 border border-gray-300 rounded-md text-sm text-gray-700 hover:bg-gray-50">3</button>
+              <button class="px-3 py-1 border border-gray-300 rounded-md text-sm text-gray-700 hover:bg-gray-50">下一页</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- 引入交互脚本 -->
+  <script src="js/main.js"></script>
+</body>
+</html>

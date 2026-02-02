@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GLINK - 绿电绿证交易平台</title>
+  <!-- 引入 Tailwind CSS（快速样式） -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 引入 Font Awesome 图标 -->
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <!-- 自定义样式 -->
+  <link rel="stylesheet" href="css/style.css">
+  
+  <!-- 配置主题色（匹配平台绿色主调） -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0D9488',    // 主绿色
+            secondary: '#10B981',  // 浅绿
+            dark: '#0F172A',       // 深色背景
+            light: '#F8FAFC',      // 浅色背景
+          },
+        },
+      }
+    }
+  </script>
+</head>
+<body class="bg-light min-h-screen">
+  <!-- 顶部导航栏 -->
+  <header class="bg-white shadow-sm sticky top-0 z-10">
+    <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+      <div class="flex items-center">
+        <div class="text-primary font-bold text-2xl">GLINK</div>
+        <span class="ml-2 text-xs text-gray-500">SUSTAINABLE ENERGY</span>
+      </div>
+      <nav class="hidden md:flex space-x-8">
+        <a href="index.html" class="text-primary font-medium">首页</a>
+        <a href="market.html" class="text-gray-600 hover:text-primary">交易市场</a>
+        <a href="dashboard.html" class="text-gray-600 hover:text-primary">数据概览</a>
+        <a href="#" class="text-gray-600 hover:text-primary">帮助中心</a>
+      </nav>
+      <div class="flex items-center space-x-4">
+        <button class="hidden md:block bg-primary text-white px-4 py-2 rounded-md hover:bg-primary/90 transition">
+          登录 / 注册
+        </button>
+        <!-- 移动端菜单按钮 -->
+        <button class="md:hidden text-gray-700" id="mobile-menu-btn">
+          <i class="fa fa-bars text-xl"></i>
+        </button>
+      </div>
+    </div>
+    <!-- 移动端菜单（默认隐藏） -->
+    <div class="md:hidden hidden bg-white border-t" id="mobile-menu">
+      <div class="container mx-auto px-6 py-3 flex flex-col space-y-3">
+        <a href="index.html" class="text-primary font-medium py-2">首页</a>
+        <a href="market.html" class="text-gray-600 hover:text-primary py-2">交易市场</a>
+        <a href="dashboard.html" class="text-gray-600 hover:text-primary py-2">数据概览</a>
+        <a href="#" class="text-gray-600 hover:text-primary py-2">帮助中心</a>
+        <button class="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary/90 transition">
+          登录 / 注册
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 英雄区 -->
+  <section class="bg-dark text-white py-16 md:py-24">
+    <div class="container mx-auto px-6">
+      <div class="max-w-3xl">
+        <h1 class="text-4xl md:text-5xl font-bold mb-6">连接能源卖方与工业用能买方</h1>
+        <p class="text-lg md:text-xl text-gray-300 mb-8">
+          实现高效能源分配与碳指标交易，推动绿色能源普及，助力双碳目标达成
+        </p>
+        <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+          <a href="market.html" class="bg-primary text-white px-6 py-3 rounded-md hover:bg-primary/90 transition text-center">
+            进入交易市场
+          </a>
+          <a href="#" class="border border-white text-white px-6 py-3 rounded-md hover:bg-white/10 transition text-center">
+            了解平台规则
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 核心优势 -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl font-bold text-center mb-12">平台核心优势</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition">
+          <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+            <i class="fa fa-exchange text-primary text-xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">高效交易</h3>
+          <p class="text-gray-600">简化交易流程，快速匹配供需双方，缩短交易周期，降低沟通成本。</p>
+        </div>
+        <div class="p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition">
+          <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+            <i class="fa fa-shield text-primary text-xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">安全合规</h3>
+          <p class="text-gray-600">全流程合规管控，数据加密存储，确保交易信息和资金安全。</p>
+        </div>
+        <div class="p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition">
+          <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+            <i class="fa fa-line-chart text-primary text-xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">数据可视</h3>
+          <p class="text-gray-600">实时数据监控，多维度分析报表，助力决策精准高效。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 底部 -->
+  <footer class="bg-dark text-gray-400 py-12">
+    <div class="container mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <div class="text-white font-bold text-xl mb-4">GLINK</div>
+          <p class="mb-4">绿色能源交易平台，让能源更高效，让环境更美好。</p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-400 hover:text-white"><i class="fa fa-weixin text-xl"></i></a>
+            <a href="#" class="text-gray-400 hover:text-white"><i class="fa fa-weibo text-xl"></i></a>
+            <a href="#" class="text-gray-400 hover:text-white"><i class="fa fa-envelope text-xl"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4 class="text-white font-medium mb-4">快速链接</h4>
+          <ul class="space-y-2">
+            <li><a href="index.html" class="hover:text-white transition">首页</a></li>
+            <li><a href="market.html" class="hover:text-white transition">交易市场</a></li>
+            <li><a href="dashboard.html" class="hover:text-white transition">数据概览</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-medium mb-4">相关资源</h4>
+          <ul class="space-y-2">
+            <li><a href="#" class="hover:text-white transition">绿电政策</a></li>
+            <li><a href="#" class="hover:text-white transition">交易规则</a></li>
+            <li><a href="#" class="hover:text-white transition">常见问题</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-medium mb-4">联系我们</h4>
+          <ul class="space-y-2">
+            <li><i class="fa fa-phone mr-2"></i> 400-123-4567</li>
+            <li><i class="fa fa-envelope mr-2"></i> contact@glink.com</li>
+            <li><i class="fa fa-map-marker mr-2"></i> 北京市朝阳区XX大厦</li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 mt-8 pt-8 text-center text-sm">
+        © 2026 GLINK 绿色能源交易平台 版权所有
+      </div>
+    </div>
+  </footer>
+
+  <!-- 引入交互脚本 -->
+  <script src="js/main.js"></script>
+</body>
+</html>
