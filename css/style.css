@@ -12,17 +12,17 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #f8f9fa;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #ccc;
+  background: #6c757d;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #0D9488;
+  background: #20c997;
 }
 
 /* 动画效果 */
@@ -54,6 +54,7 @@
 .sidebar-open {
   transform: translateX(0);
   transition: transform 0.3s ease;
+  background: #f8f9fa; /* 新增：侧边栏收起时的背景色，和展开保持一致 */
 }
 
 .sidebar-close {
